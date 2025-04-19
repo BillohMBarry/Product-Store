@@ -1,5 +1,5 @@
 import express from "express"
-import { productModels } from "./models/productModels.js"
+import productModels from "./models/productModels.js"
 
 
 const app = express()

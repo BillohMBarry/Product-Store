@@ -1,5 +1,5 @@
 import express from "express"
-import { Product } from "./models/productModel.js"
+import productModels from "./models/productModels.js"
 const app = express()
 
 const deleteRequest = app.delete("/api/products/:id", async (req, res) => {
@@ -8,15 +8,17 @@ const deleteRequest = app.delete("/api/products/:id", async (req, res) => {
     console.log(`id is ${id}`)
 
     try {
-        const product = await Product.findByIdAndDelete(id)
+        const product = await productModels.findByIdAndDelete(id)
         res.status(200).json({
             success: true,
             message: "Product Deleted Successfully",
             data : product
         })
     } catch(error) {
-        res.status(500).json({
-            message: "Error in deleting product",
+        console.log(`Error in deleting product ${error}`)
+        res.status(400).json({
+            success: false,
+            message: "Product not found",
             data : error
         })
     }
